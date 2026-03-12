@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Igrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-slate-900/90 backdrop-blur-sm sticky top-0 z-50 nav-shadow overflow-visible">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center h-14">
+                <div class="flex items-center py-2 -ml-16">
+                    <a href="index.html">
+                        <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-28 md:h-32 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <ul class="hidden md:flex space-x-8 items-center">
+                    <li><a href="index.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">HOME</a></li>
+                    <li><a href="about.html" class="text-orange-400 transition duration-300 font-medium">ABOUT US</a></li>
+                    <li><a href="services.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">SERVICES</a></li>
+                    <li><a href="portfolio.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 font-medium">CONTACT US</a></li>
+                </ul>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white text-2xl" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden" id="mobile-menu">
+                <ul class="flex flex-col space-y-4 pb-4">
+                    <li><a href="index.html" class="text-white hover:text-orange-400 transition duration-300 block">HOME</a></li>
+                    <li><a href="about.html" class="text-orange-400 transition duration-300 block">ABOUT US</a></li>
+                    <li><a href="services.html" class="text-white hover:text-orange-400 transition duration-300 block">SERVICES</a></li>
+                    <li><a href="portfolio.html" class="text-white hover:text-orange-400 transition duration-300 block">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 inline-block">CONTACT US</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 relative">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">About Igrix</h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Frontend specialists passionate about creating beautiful user experiences
+            </p>
+        </div>
+    </section>
+
+    <!-- About Content Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" 
+                         alt="Team collaboration" 
+                         class="rounded-2xl shadow-2xl w-full h-auto object-cover">
+                </div>
+                <div data-aos="fade-left">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Why Choose Igrix?</h2>
+                    <h3 class="text-2xl font-semibold text-orange-600 mb-6">Frontend Specialists Who Care About Details</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        We're passionate about creating exceptional frontend experiences. Our team specializes in HTML/CSS, JavaScript, and modern web technologies, crafting interfaces that users love to interact with.
+                    </p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        From pixel-perfect designs to smooth animations, we handle every aspect of frontend development with precision. When you need backend support, we've got you covered with Python and Node.js expertise.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                            <span class="text-gray-700">Modern frontend technologies (HTML/CSS, JavaScript)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                            <span class="text-gray-700">Responsive & accessible design</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                            <span class="text-gray-700">Backend support (Python & Node.js)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white" data-aos="fade-up">
+        <div class="container mx-auto px-4 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">What Our Clients Say</h2>
+            <p class="text-center text-gray-600 mb-12">Real feedback from real clients</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl card-shadow hover-scale" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="mb-4">
+                        <h4 class="text-lg font-bold text-gray-800">Jesam Victor</h4>
+                        <p class="text-sm text-gray-600">Graphics Designer</p>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        "Igrix transformed our website with a stunning frontend redesign. Their React expertise and attention to UI details is exceptional. The site is fast, beautiful, and our users love it!"
+                    </p>
+                    <div class="text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl card-shadow hover-scale" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="mb-4">
+                        <h4 class="text-lg font-bold text-gray-800">Faith Wayeni</h4>
+                        <p class="text-sm text-gray-600">Virtual Assistant</p>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        "Our e-commerce platform built by Igrix has increased our sales by 200%. The team delivered beyond expectations and provided excellent post-launch support."
+                    </p>
+                    <div class="text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl card-shadow hover-scale" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="mb-4">
+                        <h4 class="text-lg font-bold text-gray-800">UBTC LTD</h4>
+                        <p class="text-sm text-gray-600">Printing Press</p>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        "Professional, responsive, and incredibly skilled. Igrix built our complex web application on time and within budget. They're now our go-to development partner."
+                    </p>
+                    <div class="text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-orange-500 to-pink-600 text-white">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6" data-aos="fade-up">Ready to Start Your Project?</h2>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Let's discuss how we can help bring your vision to life with beautiful frontend development
+            </p>
+            <a href="contact.html" class="inline-block bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300 hover-scale" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-rocket mr-2"></i>
+                Get Started Today
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+                <div class="lg:col-span-1">
+                    <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-12 w-auto mb-4">
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Creating exceptional web experiences for businesses worldwide.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/profile.php?id=61587776591744&sk=about" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/igrix231812" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://github.com/Divineyibala" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/webdevigrix" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">UI/UX Design</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Frontend Development</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Responsive Design</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Backend Integration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-orange-400 transition duration-300">About Us</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Portfolio</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Portfolio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Get In Touch</h4>
+                    <a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 w-full hover-scale inline-block text-center mb-6">
+                        CONTACT US
+                    </a>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center text-sm">
+                            <i class="fas fa-envelope mr-3 text-orange-500"></i>
+                            webdevigrix@gmail.com
+                        </p>
+                        <p class="text-gray-400 flex items-center text-sm">
+                            <i class="fas fa-phone mr-3 text-orange-500"></i>
+                            +234 902 210 1030
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Igrix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

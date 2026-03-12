@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Igrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        .gradient-pink {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+        }
+        .gradient-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+        .gradient-dark {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-slate-900/90 backdrop-blur-sm sticky top-0 z-50 nav-shadow overflow-visible">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center h-14">
+                <div class="flex items-center py-2 -ml-16">
+                    <a href="index.html">
+                        <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-28 md:h-32 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <ul class="hidden md:flex space-x-8 items-center">
+                    <li><a href="index.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">HOME</a></li>
+                    <li><a href="about.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">ABOUT US</a></li>
+                    <li><a href="services.html" class="text-orange-400 transition duration-300 font-medium">SERVICES</a></li>
+                    <li><a href="portfolio.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 font-medium">CONTACT US</a></li>
+                </ul>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white text-2xl" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden" id="mobile-menu">
+                <ul class="flex flex-col space-y-4 pb-4">
+                    <li><a href="index.html" class="text-white hover:text-orange-400 transition duration-300 block">HOME</a></li>
+                    <li><a href="about.html" class="text-white hover:text-orange-400 transition duration-300 block">ABOUT US</a></li>
+                    <li><a href="services.html" class="text-orange-400 transition duration-300 block">SERVICES</a></li>
+                    <li><a href="portfolio.html" class="text-white hover:text-orange-400 transition duration-300 block">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 inline-block">CONTACT US</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 relative">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">Our Services</h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Frontend-focused solutions with backend support when you need it
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-xl card-shadow text-center hover-scale" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-palette text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">UI/UX Design</h3>
+                    <p class="text-gray-600">Beautiful, intuitive interfaces crafted with attention to every detail</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl card-shadow text-center hover-scale" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-code text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Frontend Development</h3>
+                    <p class="text-gray-600">HTML/CSS, JavaScript and modern frameworks for dynamic experiences</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl card-shadow text-center hover-scale" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Responsive Design</h3>
+                    <p class="text-gray-600">Mobile-first designs that work flawlessly across all devices</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl card-shadow text-center hover-scale" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-server text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Backend Integration</h3>
+                    <p class="text-gray-600">Python & Node.js backend support for complete solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Detail 1 -->
+    <section class="gradient-pink text-white py-20" data-aos="fade-up">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Frontend Excellence</h2>
+                    <p class="text-lg mb-8 leading-relaxed">
+                        We build stunning user interfaces with HTML/CSS, JavaScript, and cutting-edge technologies. Our frontend specialists create responsive, performant applications that delight users. Need backend? We integrate seamlessly with Python and Node.js APIs.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-code text-white text-xl mr-3"></i>
+                            <span>HTML/CSS, JavaScript & modern frameworks</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-paint-brush text-white text-xl mr-3"></i>
+                            <span>Component-based architecture</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-bolt text-white text-xl mr-3"></i>
+                            <span>Performance optimization</span>
+                        </li>
+                    </ul>
+                    <a href="contact.html" class="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition duration-300 hover-scale inline-block">
+                        Get Started
+                    </a>
+                </div>
+                <div data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" 
+                         alt="Frontend development" 
+                         class="rounded-2xl shadow-2xl w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Detail 2 -->
+    <section class="gradient-blue text-white py-20" data-aos="fade-up">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop" 
+                         alt="UI/UX Design" 
+                         class="rounded-2xl shadow-2xl w-full h-auto object-cover">
+                </div>
+                <div class="order-1 lg:order-2" data-aos="fade-left">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Design That Converts</h2>
+                    <p class="text-lg mb-8 leading-relaxed">
+                        Beautiful interfaces that users love. Our designers and frontend developers work together to create intuitive, engaging experiences. Every animation, transition, and interaction is crafted with purpose.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-palette text-white text-xl mr-3"></i>
+                            <span>Custom design systems</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-magic text-white text-xl mr-3"></i>
+                            <span>Smooth animations & transitions</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-mobile-alt text-white text-xl mr-3"></i>
+                            <span>Mobile-first responsive design</span>
+                        </li>
+                    </ul>
+                    <a href="portfolio.html" class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition duration-300 hover-scale inline-block">
+                        View Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Detail 3 -->
+    <section class="gradient-dark text-white py-20" data-aos="fade-up">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Backend When You Need It</h2>
+                    <p class="text-lg mb-8 leading-relaxed">
+                        While we focus on frontend, we provide solid backend support with Python and Node.js. API integration, database connections, and server-side logic - we've got you covered for complete solutions.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-plug text-white text-xl mr-3"></i>
+                            <span>RESTful API integration</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-server text-white text-xl mr-3"></i>
+                            <span>Python & Node.js backends</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-database text-white text-xl mr-3"></i>
+                            <span>Database integration</span>
+                        </li>
+                    </ul>
+                    <a href="about.html" class="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition duration-300 hover-scale inline-block">
+                        Learn More
+                    </a>
+                </div>
+                <div data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop" 
+                         alt="Backend development" 
+                         class="rounded-2xl shadow-2xl w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6" data-aos="fade-up">Ready to Get Started?</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Let's discuss your project and see how we can help you achieve your goals
+            </p>
+            <a href="contact.html" class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300 hover-scale" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-rocket mr-2"></i>
+                Contact Us Today
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+                <div class="lg:col-span-1">
+                    <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-12 w-auto mb-4">
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Creating exceptional web experiences for businesses worldwide.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/profile.php?id=61587776591744&sk=about" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/igrix231812" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://github.com/Divineyibala" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/webdevigrix" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">UI/UX Design</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Frontend Development</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Responsive Design</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Backend Integration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-orange-400 transition duration-300">About Us</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Portfolio</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Portfolio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Get In Touch</h4>
+                    <a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 w-full hover-scale inline-block text-center mb-6">
+                        CONTACT US
+                    </a>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center text-sm">
+                            <i class="fas fa-envelope mr-3 text-orange-500"></i>
+                            webdevigrix@gmail.com
+                        </p>
+                        <p class="text-gray-400 flex items-center text-sm">
+                            <i class="fas fa-phone mr-3 text-orange-500"></i>
+                            +234 902 210 1030
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Igrix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

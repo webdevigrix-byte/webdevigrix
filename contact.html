@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Igrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-slate-900/90 backdrop-blur-sm sticky top-0 z-50 nav-shadow overflow-visible">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center h-14">
+                <div class="flex items-center py-2 -ml-16">
+                    <a href="index.html">
+                        <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-28 md:h-32 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <ul class="hidden md:flex space-x-8 items-center">
+                    <li><a href="index.html#home" class="text-white hover:text-orange-400 transition duration-300 font-medium">HOME</a></li>
+                    <li><a href="index.html#about" class="text-white hover:text-orange-400 transition duration-300 font-medium">ABOUT US</a></li>
+                    <li><a href="index.html#services" class="text-white hover:text-orange-400 transition duration-300 font-medium">SERVICES</a></li>
+                    <li><a href="index.html#portfolio" class="text-white hover:text-orange-400 transition duration-300 font-medium">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 font-medium">CONTACT US</a></li>
+                </ul>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white text-2xl" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden" id="mobile-menu">
+                <ul class="flex flex-col space-y-4 pb-4">
+                    <li><a href="index.html#home" class="text-white hover:text-orange-400 transition duration-300 block">HOME</a></li>
+                    <li><a href="index.html#about" class="text-white hover:text-orange-400 transition duration-300 block">ABOUT US</a></li>
+                    <li><a href="index.html#services" class="text-white hover:text-orange-400 transition duration-300 block">SERVICES</a></li>
+                    <li><a href="index.html#portfolio" class="text-white hover:text-orange-400 transition duration-300 block">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 inline-block">CONTACT US</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 relative">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">Get In Touch</h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Have a project in mind? Let's discuss how we can help bring your vision to life.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-2xl card-shadow" data-aos="fade-right">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+                    <p class="text-gray-600 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
+                    
+                    <form action="https://formspree.io/f/xzdjrqzg" method="POST" id="contact-form" class="space-y-6">
+                        <!-- Hidden field for EmailJS -->
+                        <input type="hidden" name="_replyto" value="">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">First Name</label>
+                                <input type="text" name="firstName" id="firstName" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Last Name</label>
+                                <input type="text" name="lastName" id="lastName" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                            <input type="email" name="email" id="email" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Phone Number (Optional)</label>
+                            <input type="tel" name="phone" id="phone" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Project Type</label>
+                            <select name="projectType" id="projectType" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                                <option value="">Select a service</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                                <option value="Frontend Development">Frontend Development</option>
+                                <option value="Responsive Design">Responsive Design</option>
+                                <option value="Backend Integration">Backend Integration</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Message</label>
+                            <textarea name="message" id="message" rows="5" required 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" id="submit-btn"
+                                class="w-full bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition duration-300 hover-scale">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            <span id="btn-text">Send Message</span>
+                        </button>
+                        
+                        <div id="form-message" class="hidden text-center p-4 rounded-lg"></div>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div data-aos="fade-left">
+                    <div class="bg-gradient-to-br from-orange-500 to-pink-600 text-white p-8 rounded-2xl mb-6">
+                        <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-white bg-opacity-20 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-phone text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Phone</h4>
+                                    <p class="text-gray-100">+234 902 210 1030</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-white bg-opacity-20 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Email</h4>
+                                    <p class="text-gray-100">webdevigrix@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-2xl card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Follow Us</h3>
+                        <p class="text-gray-600 mb-6">Stay connected on social media</p>
+                        <div class="flex space-x-4">
+                            <a href="https://web.facebook.com/profile.php?id=61587776591744&sk=about" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 bg-orange-100 hover:bg-orange-500 text-orange-500 hover:text-white rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </a>
+                            <a href="https://x.com/igrix231812" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 bg-orange-100 hover:bg-orange-500 text-orange-500 hover:text-white rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            <a href="https://github.com/Divineyibala" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 bg-orange-100 hover:bg-orange-500 text-orange-500 hover:text-white rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-github text-xl"></i>
+                            </a>
+                            <a href="https://www.instagram.com/webdevigrix" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 bg-orange-100 hover:bg-orange-500 text-orange-500 hover:text-white rounded-full flex items-center justify-center transition duration-300">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-900 text-white p-8 rounded-2xl mt-6">
+                        <h3 class="text-2xl font-bold mb-4">Business Hours</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-300">Monday - Friday</span>
+                                <span class="font-semibold">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-300">Saturday</span>
+                                <span class="font-semibold">10:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-300">Sunday</span>
+                                <span class="font-semibold">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-12 w-auto mb-4">
+                    <p class="text-gray-400 leading-relaxed">
+                        Creating exceptional web experiences for businesses worldwide.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-orange-400 transition duration-300">Home</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-orange-400 transition duration-300">About Us</a></li>
+                        <li><a href="index.html#services" class="text-gray-400 hover:text-orange-400 transition duration-300">Services</a></li>
+                        <li><a href="index.html#portfolio" class="text-gray-400 hover:text-orange-400 transition duration-300">Portfolio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">UI/UX Design</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Frontend Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Responsive Design</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-orange-400 transition duration-300">Backend Integration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" 
+                               class="flex-1 px-4 py-2 rounded-l-lg text-gray-800 focus:outline-none">
+                        <button type="submit" 
+                                class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-r-lg transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Igrix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("-AblcDoikI3jXr6sP");
+        })();
+
+        // Mobile menu toggle
+        $('#mobile-menu-btn').click(function() {
+            $('#mobile-menu').toggleClass('active');
+            $(this).find('i').toggleClass('fa-bars fa-times');
+        });
+
+        // Form submission with EmailJS
+        $('#contact-form').submit(function(e) {
+            e.preventDefault();
+            
+            const submitBtn = $('#submit-btn');
+            const btnText = $('#btn-text');
+            const formMessage = $('#form-message');
+            
+            // Disable button and show loading
+            submitBtn.prop('disabled', true);
+            btnText.html('<i class="fas fa-spinner fa-spin mr-2"></i>Sending...');
+            
+            // Get form data
+            const templateParams = {
+                from_name: $('#firstName').val() + ' ' + $('#lastName').val(),
+                from_email: $('#email').val(),
+                phone: $('#phone').val() || 'Not provided',
+                project_type: $('#projectType').val(),
+                message: $('#message').val()
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_124nlnz', 'template_2pok2xg', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    formMessage.removeClass('hidden bg-red-100 text-red-700')
+                               .addClass('bg-green-100 text-green-700')
+                               .html('<i class="fas fa-check-circle mr-2"></i>Thank you! Your message has been sent successfully. We\'ll get back to you soon.');
+                    
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+                    
+                    // Re-enable button
+                    submitBtn.prop('disabled', false);
+                    btnText.html('Send Message');
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(function() {
+                        formMessage.addClass('hidden');
+                    }, 5000);
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Show error message
+                    formMessage.removeClass('hidden bg-green-100 text-green-700')
+                               .addClass('bg-red-100 text-red-700')
+                               .html('<i class="fas fa-exclamation-circle mr-2"></i>Oops! Something went wrong. Please try again or email us directly at webdevigrix@gmail.com');
+                    
+                    // Re-enable button
+                    submitBtn.prop('disabled', false);
+                    btnText.html('Send Message');
+                });
+        });
+    </script>
+</body>
+</html>

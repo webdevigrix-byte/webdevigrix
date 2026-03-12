@@ -1,297 +1,538 @@
-$(document).ready(function() {
-    // Initialize AOS (Animate On Scroll)
-    AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 100,
-        easing: 'ease-in-out'
-    });
-
-    // Mobile menu toggle
-    $('#mobile-menu-btn').click(function() {
-        $('#mobile-menu').toggleClass('active');
-        $(this).find('i').toggleClass('fa-bars fa-times');
-    });
-
-    // Close mobile menu when clicking on a link
-    $('#mobile-menu a').click(function() {
-        $('#mobile-menu').removeClass('active');
-        $('#mobile-menu-btn').find('i').removeClass('fa-times').addClass('fa-bars');
-    });
-
-    // Smooth scrolling for anchor links
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        var target = $(this.getAttribute('href'));
-        if(target.length) {
-            $('html, body').stop().animate({
-                scrollTop: target.offset().top - 80
-            }, 1000, 'swing');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Igrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        html, body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            max-width: 100%;
         }
-    });
-
-    // Scroll to top button
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 300) {
-            $('#scroll-top').fadeIn().css('display', 'flex');
-        } else {
-            $('#scroll-top').fadeOut();
+        body {
+            position: relative;
         }
-
-        // Add shadow to navbar on scroll
-        if ($(this).scrollTop() > 50) {
-            $('nav').addClass('nav-shadow');
-        } else {
-            $('nav').removeClass('nav-shadow');
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
         }
-    });
-
-    $('#scroll-top').click(function() {
-        $('html, body').animate({scrollTop: 0}, 800);
-        return false;
-    });
-
-    // Counter animation for stats
-    let counterAnimated = false;
-    
-    function animateCounter() {
-        if (counterAnimated) return;
-        
-        $('.counter').each(function() {
-            var $this = $(this);
-            var countTo = parseInt($this.attr('data-count'));
-            
-            var elementTop = $this.offset().top;
-            var viewportBottom = $(window).scrollTop() + $(window).height();
-            
-            if (elementTop < viewportBottom - 100) {
-                counterAnimated = true;
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: translateY(-5px);
+        }
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-modal.active {
+            display: flex;
+        }
+        .video-container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(249, 115, 22, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .play-button:hover {
+            background: rgba(249, 115, 22, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-slate-900/90 backdrop-blur-sm sticky top-0 z-50 nav-shadow overflow-visible">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center py-2 -ml-16">
+                    <a href="index.html">
+                        <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-28 md:h-32 w-auto">
+                    </a>
+                </div>
                 
-                $('.counter').each(function() {
-                    var $counter = $(this);
-                    var target = parseInt($counter.attr('data-count'));
-                    
-                    $({ countNum: 0 }).animate({
-                        countNum: target
-                    }, {
-                        duration: 2500,
-                        easing: 'swing',
-                        step: function() {
-                            $counter.text(Math.floor(this.countNum));
-                        },
-                        complete: function() {
-                            $counter.text(target + '+');
-                        }
-                    });
-                });
-            }
-        });
-    }
-
-    $(window).on('scroll', animateCounter);
-    animateCounter();
-
-    // Parallax effect for hero section
-    $(window).scroll(function() {
-        var scrolled = $(window).scrollTop();
-        $('.hero-gradient').css('transform', 'translateY(' + (scrolled * 0.3) + 'px)');
-    });
-
-    // Add hover effect to cards with enhanced shadow
-    $('.card-shadow').hover(
-        function() {
-            $(this).css({
-                'box-shadow': '0 20px 40px rgba(0, 0, 0, 0.15)',
-                'transform': 'translateY(-5px)'
-            });
-        },
-        function() {
-            $(this).css({
-                'box-shadow': '0 10px 30px rgba(0, 0, 0, 0.1)',
-                'transform': 'translateY(0)'
-            });
-        }
-    );
-
-    // Lazy loading for images
-    $('img').each(function() {
-        $(this).attr('loading', 'lazy');
-    });
-
-    // Active navigation highlight
-    $(window).scroll(function() {
-        var scrollPos = $(document).scrollTop() + 100;
-        
-        $('nav a[href^="#"]').each(function() {
-            var currLink = $(this);
-            var refElement = $(currLink.attr('href'));
+                <!-- Desktop Menu -->
+                <ul class="hidden md:flex space-x-8 items-center">
+                    <li><a href="index.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">HOME</a></li>
+                    <li><a href="about.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">ABOUT US</a></li>
+                    <li><a href="services.html" class="text-white hover:text-orange-400 transition duration-300 font-medium">SERVICES</a></li>
+                    <li><a href="portfolio.html" class="text-orange-400 transition duration-300 font-medium">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 font-medium">CONTACT US</a></li>
+                </ul>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white text-2xl" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
             
-            if (refElement.length && refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-                $('nav a').removeClass('text-orange-400');
-                currLink.addClass('text-orange-400');
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden" id="mobile-menu">
+                <ul class="flex flex-col space-y-4 pb-4">
+                    <li><a href="index.html" class="text-white hover:text-orange-400 transition duration-300 block">HOME</a></li>
+                    <li><a href="about.html" class="text-white hover:text-orange-400 transition duration-300 block">ABOUT US</a></li>
+                    <li><a href="services.html" class="text-white hover:text-orange-400 transition duration-300 block">SERVICES</a></li>
+                    <li><a href="portfolio.html" class="text-orange-400 transition duration-300 block">PORTFOLIO</a></li>
+                    <li><a href="contact.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition duration-300 inline-block">CONTACT US</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 relative">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">Our Portfolio</h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Explore our latest projects and see how we bring ideas to life with stunning frontend designs
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up">
+                <button class="filter-btn active px-6 py-2 rounded-full bg-orange-500 text-white font-semibold transition duration-300" data-filter="all">
+                    All Projects
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-orange-500 hover:text-white font-semibold transition duration-300" data-filter="react">
+                    React
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-orange-500 hover:text-white font-semibold transition duration-300" data-filter="html">
+                    HTML/CSS
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-orange-500 hover:text-white font-semibold transition duration-300" data-filter="design">
+                    UI/UX Design
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+
+                <!-- Project 1: Elegance -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="react" data-aos="fade-up">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/Elegance.mp4')">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=400&fit=crop" 
+                             alt="Elegance Fashion Brand" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Elegance</h3>
+                            <p class="text-sm mb-2">A fashion brand portfolio</p>
+                            <div class="flex gap-2">
+                                <span class="bg-purple-500 px-3 py-1 rounded-full text-xs">Figma</span>
+                                <span class="bg-blue-500 px-3 py-1 rounded-full text-xs">React.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: FitBase -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="react" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/fitbase.mp4')">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop" 
+                             alt="FitBase Gym Management" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">FitBase</h3>
+                            <p class="text-sm mb-2">A gym management system</p>
+                            <div class="flex gap-2">
+                                <span class="bg-pink-500 px-3 py-1 rounded-full text-xs">Figma</span>
+                                <span class="bg-cyan-500 px-3 py-1 rounded-full text-xs">React.js</span>
+                                <span class="bg-teal-500 px-3 py-1 rounded-full text-xs">Tailwind</span>
+                                <span class="bg-yellow-500 px-3 py-1 rounded-full text-xs">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Igrisonic -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="design" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/igrisonic.mp4')">
+                        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=400&fit=crop" 
+                             alt="Igrisonic Music Platform" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Igrisonic</h3>
+                            <p class="text-sm mb-2">A music streaming platform</p>
+                            <div class="flex gap-2">
+                                <span class="bg-indigo-500 px-3 py-1 rounded-full text-xs">Figma</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Igrix UI -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="design" data-aos="fade-up">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/igrix_ui.mp4')">
+                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop" 
+                             alt="Igrix UI Design" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Igrix UI</h3>
+                            <p class="text-sm mb-2">The original UI for this website</p>
+                            <div class="flex gap-2">
+                                <span class="bg-purple-500 px-3 py-1 rounded-full text-xs">Figma</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Portfolio -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="html" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/portfolio.mp4')">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" 
+                             alt="Web Developer Portfolio" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Portfolio</h3>
+                            <p class="text-sm mb-2">A webdev portfolio</p>
+                            <div class="flex gap-2">
+                                <span class="bg-orange-500 px-3 py-1 rounded-full text-xs">HTML</span>
+                                <span class="bg-blue-500 px-3 py-1 rounded-full text-xs">CSS</span>
+                                <span class="bg-yellow-500 px-3 py-1 rounded-full text-xs">JavaScript</span>
+                                <span class="bg-teal-500 px-3 py-1 rounded-full text-xs">Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Roasted Bliss -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="react" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/roastedbliss.mp4')">
+                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop" 
+                             alt="Roasted Bliss Coffee Shop" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Roasted Bliss</h3>
+                            <p class="text-sm mb-2">A coffee shop website</p>
+                            <div class="flex gap-2">
+                                <span class="bg-purple-500 px-3 py-1 rounded-full text-xs">React.js</span>
+                                <span class="bg-emerald-500 px-3 py-1 rounded-full text-xs">Three.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7: Serenity -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="react" data-aos="fade-up">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/serenity.mp4')">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop" 
+                             alt="Serenity Wellness Center" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Serenity</h3>
+                            <p class="text-sm mb-2">A wellness center website</p>
+                            <div class="flex gap-2">
+                                <span class="bg-green-500 px-3 py-1 rounded-full text-xs">React.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8: Tasty Bites -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="react" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/tastybites.mp4')">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop" 
+                             alt="Tasty Bites Food Shop" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Tasty Bites</h3>
+                            <p class="text-sm mb-2">A food shop website</p>
+                            <div class="flex gap-2">
+                                <span class="bg-purple-500 px-3 py-1 rounded-full text-xs">React.js</span>
+                                <span class="bg-emerald-500 px-3 py-1 rounded-full text-xs">Three.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 9: UBTC -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="html" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/UBTC.mp4')">
+                        <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=600&h=400&fit=crop" 
+                             alt="UBTC Digital Press" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">UBTC</h3>
+                            <p class="text-sm mb-2">A digital and printing press website</p>
+                            <div class="flex gap-2">
+                                <span class="bg-teal-500 px-3 py-1 rounded-full text-xs">Tailwind</span>
+                                <span class="bg-orange-500 px-3 py-1 rounded-full text-xs">HTML</span>
+                                <span class="bg-yellow-500 px-3 py-1 rounded-full text-xs">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 10: Valentine -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="html" data-aos="fade-up">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/Valentine.mp4')">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=400&fit=crop" 
+                             alt="Valentine Love Request" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Valentine</h3>
+                            <p class="text-sm mb-2">A love request website</p>
+                            <div class="flex gap-2">
+                                <span class="bg-red-500 px-3 py-1 rounded-full text-xs">Java</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 11: Virtual Assistant -->
+                <div class="portfolio-item bg-white rounded-xl overflow-hidden card-shadow hover-scale" data-category="html" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden group cursor-pointer" onclick="openVideo('assets/videos/Virtual-assistant.mp4')">
+                        <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&h=400&fit=crop" 
+                             alt="Virtual Assistant Portfolio" 
+                             class="w-full h-64 object-cover">
+                        <div class="play-button">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Virtual Assistant</h3>
+                            <p class="text-sm mb-2">A virtual assistant portfolio</p>
+                            <div class="flex gap-2">
+                                <span class="bg-teal-500 px-3 py-1 rounded-full text-xs">Tailwind</span>
+                                <span class="bg-orange-500 px-3 py-1 rounded-full text-xs">HTML</span>
+                                <span class="bg-yellow-500 px-3 py-1 rounded-full text-xs">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <button onclick="closeVideo()" class="absolute top-8 right-8 text-white text-4xl hover:text-orange-500 transition duration-300 z-10">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="video-container">
+            <video id="modalVideo" controls class="w-full h-full rounded-lg">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-orange-500 to-pink-600 text-white">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6" data-aos="fade-up">Ready to Start Your Project?</h2>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Let's create something amazing together. Get in touch with us today!
+            </p>
+            <a href="contact.html" class="inline-block bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition duration-300 hover-scale" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-rocket mr-2"></i>
+                Start Your Project
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <img src="assets/images/IGRIX_logo.png" alt="Igrix Logo" class="h-12 w-auto mb-4">
+                    <p class="text-gray-400 leading-relaxed">
+                        Creating exceptional web experiences for businesses worldwide.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-orange-400 transition duration-300">About Us</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Services</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Portfolio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">UI/UX Design</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Frontend Development</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Responsive Design</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-orange-400 transition duration-300">Backend Integration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/profile.php?id=61587776591744&sk=about" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/igrix231812" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://github.com/Divineyibala" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/webdevigrix" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 hover:bg-orange-500 rounded-full flex items-center justify-center transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Igrix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Mobile menu toggle
+        $('#mobile-menu-btn').click(function() {
+            $('#mobile-menu').toggleClass('active');
+            $(this).find('i').toggleClass('fa-bars fa-times');
+        });
+
+        // Filter functionality
+        $('.filter-btn').click(function() {
+            const filter = $(this).data('filter');
+            
+            // Update active button
+            $('.filter-btn').removeClass('active bg-orange-500 text-white').addClass('bg-gray-200 text-gray-700');
+            $(this).addClass('active bg-orange-500 text-white').removeClass('bg-gray-200 text-gray-700');
+            
+            // Filter items
+            if (filter === 'all') {
+                $('.portfolio-item').fadeIn(300);
             } else {
-                currLink.removeClass('text-orange-400');
+                $('.portfolio-item').hide();
+                $(`.portfolio-item[data-category="${filter}"]`).fadeIn(300);
             }
         });
-    });
 
-    // Typing animation for hero section
-    const text = "const success = await igrix.buildWebsite();";
-    let index = 0;
-    
-    function typeWriter() {
-        if (index < text.length) {
-            $('.code-animation').text(text.substring(0, index + 1));
-            index++;
-            setTimeout(typeWriter, 100);
+        // Video modal functions
+        function openVideo(videoSrc) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            video.src = videoSrc;
+            modal.classList.add('active');
+            video.play();
         }
-    }
-    
-    // Start typing animation after page load
-    setTimeout(typeWriter, 1000);
 
-    // Add page load animation
-    $(window).on('load', function() {
-        $('body').css('opacity', '0').animate({opacity: 1}, 500);
-    });
-
-    // Intersection Observer for section animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                $(entry.target).addClass('animate-fade-in');
-            }
-        });
-    }, observerOptions);
-
-    // Observe all sections
-    $('section').each(function() {
-        observer.observe(this);
-    });
-
-    // Add stagger animation to feature cards
-    $('.feature-grid > div, .stats-grid > div, .blog-grid > div').each(function(index) {
-        $(this).css({
-            'animation-delay': (index * 0.1) + 's'
-        });
-    });
-
-    // Smooth reveal animation for images
-    $('img').on('load', function() {
-        $(this).addClass('fade-in');
-    });
-
-    // Add ripple effect to buttons
-    $('button, .btn-primary, .btn-secondary').on('click', function(e) {
-        var ripple = $('<span class="ripple"></span>');
-        $(this).append(ripple);
-        
-        var x = e.pageX - $(this).offset().left;
-        var y = e.pageY - $(this).offset().top;
-        
-        ripple.css({
-            left: x + 'px',
-            top: y + 'px'
-        });
-        
-        setTimeout(function() {
-            ripple.remove();
-        }, 600);
-    });
-
-    // Add CSS for ripple effect
-    $('<style>')
-        .prop('type', 'text/css')
-        .html(`
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.6);
-                width: 20px;
-                height: 20px;
-                animation: ripple-animation 0.6s;
-                pointer-events: none;
-            }
-            @keyframes ripple-animation {
-                from {
-                    transform: scale(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: scale(20);
-                    opacity: 0;
-                }
-            }
-            .fade-in {
-                animation: fadeIn 0.5s ease-in;
-            }
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-        `)
-        .appendTo('head');
-
-    // Navbar background change on scroll
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 100) {
-            $('nav').css('background-color', 'rgba(30, 41, 59, 0.95)');
-        } else {
-            $('nav').css('background-color', 'rgb(30, 41, 59)');
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            video.pause();
+            video.currentTime = 0;
+            modal.classList.remove('active');
         }
-    });
 
-    // Add smooth transitions to all hover effects
-    $('.hover-scale').css('transition', 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)');
-
-    // Tech icons floating animation
-    $('.tech-icon').each(function(index) {
-        $(this).css({
-            'animation': 'float 3s ease-in-out infinite',
-            'animation-delay': (index * 0.2) + 's'
-        });
-    });
-
-    // Add floating animation CSS
-    $('<style>')
-        .prop('type', 'text/css')
-        .html(`
-            @keyframes float {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideo();
             }
-        `)
-        .appendTo('head');
+        });
 
-    // Preload images for better performance
-    const imagesToPreload = [
-        'https://images.unsplash.com/photo-1517694712202-14dd9538aa97',
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c',
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f'
-    ];
-
-    imagesToPreload.forEach(src => {
-        const img = new Image();
-        img.src = src + '?w=800&h=600&fit=crop';
-    });
-
-    // Add scroll progress indicator
-    $(window).scroll(function() {
-        var scrollTop = $(window).scrollTop();
-        var docHeight = $(document).height();
-        var winHeight = $(window).height();
-        var scrollPercent = (scrollTop) / (docHeight - winHeight);
-        var scrollPercentRounded = Math.round(scrollPercent * 100);
-        
-        if (!$('#scroll-progress').length) {
-            $('body').prepend('<div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #f97316, #ec4899); z-index: 9999; transition: width 0.1s;"></div>');
-        }
-        
-        $('#scroll-progress').css('width', scrollPercentRounded + '%');
-    });
-});
+        // Close modal on background click
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideo();
+            }
+        });
+    </script>
+</body>
+</html>
